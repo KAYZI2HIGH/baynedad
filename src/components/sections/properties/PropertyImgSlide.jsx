@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,7 +7,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const PropertyImgSlide = ({property}) => {
+const PropertyImgSlide = ({ property }) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -21,14 +21,14 @@ const PropertyImgSlide = ({property}) => {
           className="group-hover:scale-110 transition-all duration-300"
         >
           <Image
-            src={img}
             fill
+            src={img}
             alt="property image"
           />
         </SwiperSlide>
       ))}
     </Swiper>
   );
-}
+};
 
 export default PropertyImgSlide;

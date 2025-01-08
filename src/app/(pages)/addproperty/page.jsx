@@ -9,7 +9,7 @@ const page = async() => {
   
   const session = await auth();
 
-  if (!session.user.isAdmin) {
+  if (!session?.user?.isAdmin) {
     redirect('/')
   }
 

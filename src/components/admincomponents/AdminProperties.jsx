@@ -33,7 +33,7 @@ const AdminProperties = async ({ session }) => {
             className="w-full p-4 flex items-center justify-between"
           >
             <div className="w-fit space-x-4 flex">
-              <Image
+              <img
                 src={property.images[0]}
                 alt="Property Image"
                 height={100}

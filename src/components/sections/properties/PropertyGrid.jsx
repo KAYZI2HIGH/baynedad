@@ -22,7 +22,7 @@ const propertyCard = (property) => (
     key={property._id}
   >
     <div className="p-3 space-y-3">
-      <p className="uppercase small_text tracking-wide text-blue-500 font-bold tracking-widest">
+      <p className="uppercase small_text text-blue-500 font-bold tracking-widest">
         {property.dateListed}
       </p>
       <h1 className="uppercase normal_text tracking-wider font-semibold group-hover:text-[#BC986B]">
@@ -90,7 +90,7 @@ const PropertyGrid = async ({ propertyPerView }) => {
           } else if (index < propertyPerView) {
             return propertyCard(property, index);
           }
-        })}
+        })} 
       </div>
     );
   } else {

@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 // Your own logic for dealing with plaintext password strings; be careful
 import { connectToDB } from "@/lib/mongo";
 import { User } from "@/lib/mongo/models";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -60,22 +60,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       // Add user data to JWT during sign-in
-       if (user) {
-         token.id = user.id;
-         token.name = user.name;
-         token.email = user.email;
-         token.isAdmin = user.isAdmin;
-       }
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.isAdmin = user.isAdmin;
+      }
       return token;
     },
     async session({ session, token }) {
       // Attach full user data to the session
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.isAdmin = token.isAdmin;
+      session.user.id = token.id;
+      session.user.name = token.name;
+      session.user.email = token.email;
+      session.user.isAdmin = token.isAdmin;
 
       return session;
-    }
-  }
+    },
+  },
+  trustHost: true,
 });

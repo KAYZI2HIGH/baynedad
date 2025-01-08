@@ -2,7 +2,7 @@
 
 import { addPropertyAction } from "@/lib/actions";
 import { CircularProgress } from "@mui/material";
-import { Check, CheckCircle, XCircle } from "lucide-react";
+import {  CheckCircle, XCircle } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -43,9 +43,9 @@ const AddPropertyForm = ({ session }) => {
       if (res.error) setServerMessage({ type: "error", message: res.error });
       setServerMessage({ type: "success", message: res.success });
 
+      reset();
       revalidatePath("/properties");
       revalidatePath("/addproperty");
-      reset();
     } catch (error) {
       console.log(error);
       console.log("Something went wrong when submitting new property to DB.");

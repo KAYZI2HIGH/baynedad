@@ -13,7 +13,7 @@ const NavLinks = ({ mobile, setMenu, session }) => {
   return (
     <div className={`flex gap-10 ${mobile && "flex-col"}`}>
       {navLinks.map((link, index) => {
-        if (link.title === "add property" && !session?.user.isAdmin) {
+        if (link.title === "add property" && !session?.user?.isAdmin) {
           return;
         }
         return (
@@ -34,21 +34,7 @@ const NavLinks = ({ mobile, setMenu, session }) => {
           </Link>
         );
       })}
-      {!session?.user ? (
-        <Link
-          href="/login"
-          className="md:hidden py-2 px-5  rounded font-semibold tracking-widest shadow border-2 uppercase text-black border-black duration-300 w-fit"
-        >
-          login
-        </Link>
-      ) : (
-        <button
-          onClick={() => signOut()}
-          className="md:hidden py-2 px-5  rounded font-semibold tracking-widest shadow border-2 uppercase text-black border-black duration-300 w-fit"
-        >
-          signout
-        </button>
-      )}
+      
     </div>
   );
 };

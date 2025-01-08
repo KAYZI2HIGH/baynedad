@@ -1,5 +1,7 @@
 'use server'
 
+import cloudinary from "../../cloudinary";
+
 import { signIn } from "../../auth";
 import { connectToDB } from "./mongo";
 import { Property, User } from "./mongo/models";
@@ -11,6 +13,7 @@ import { revalidatePath } from "next/cache";
 
 import { writeFile } from "fs/promises";
 import path from "path";
+
 
 export const registerFormAction = async (data) => {
   'use server'
@@ -68,14 +71,14 @@ export const loginFormAction = async (data) => {
 export const addPropertyAction = async (formData) => {
   "use server";
 
-     const propertyName = formData.get("propertyName");
-     const description = formData.get("description");
-     const location = formData.get("location");
-     const price = formData.get("price");
-     const features = formData.getAll("features");
-     const propertyType = formData.get("propertyType");
-     const agentId = formData.get("agentId");
-     const images = formData.getAll("images");
+  const propertyName = formData.get("propertyName");
+  const description = formData.get("description");
+  const location = formData.get("location");
+  const price = formData.get("price");
+  const features = formData.getAll("features");
+  const propertyType = formData.get("propertyType");
+  const agentId = formData.get("agentId");
+  const images = formData.getAll("images");
 
   try {
     connectToDB();
@@ -86,13 +89,18 @@ export const addPropertyAction = async (formData) => {
     if (images && images.length > 0) {
       for (const image of images) {
         const buffer = await image.arrayBuffer();
-        const imageName = `${Date.now()}-${image.name}`;
-        const imagePath = path.join(process.cwd(), "public/uploads", imageName);
+        const base64Image = `data:${image.type};base64,${Buffer.from(
+          buffer
+        ).toString("base64")}`;
 
-        await writeFile(imagePath, Buffer.from(buffer));
+        // Upload the image to Cloudinary
+        const uploadResponse = await cloudinary.uploader.upload(base64Image, {
+          public_id: `${Date.now()}-${image.name.replace(/\s+/g, "-")}`,
+          resource_type: "auto",
+        });
 
-        // Save relative path or full URL
-        imageUrls.push(`/uploads/${imageName}`);
+        // Push the Cloudinary image URL to the array
+        imageUrls.push(uploadResponse.secure_url);
       }
     }
 
@@ -104,7 +112,7 @@ export const addPropertyAction = async (formData) => {
       type: propertyType,
       features,
       agentId,
-      images: imageUrls, // Store array of image URLs in the database
+      images: imageUrls, // Store Cloudinary URLs in the database
     });
 
     await newProperty.save();
@@ -120,19 +128,49 @@ export const addPropertyAction = async (formData) => {
   }
 };
 
+
 export const deleteProperty = async (id) => {
-  'use server'
+  "use server";
 
   try {
-    connectToDB()
+    connectToDB();
 
-    await Property.deleteOne({ _id: id })
-    revalidatePath('/properties')
-    revalidatePath('/addproperty')
-    console.log('Property deleted.')
+    // 1️⃣ Fetch the property details to get image URLs
+    const property = await Property.findById(id);
+
+    if (!property) {
+      console.log("Property not found.");
+      return { error: "Property not found." };
+    }
+
+    // 2️⃣ Extract Cloudinary public IDs from the image URLs
+    const imageUrls = property.images || [];
+    const publicIds = imageUrls.map((url) => {
+      const parts = url.split("/");
+      const filenameWithExtension = parts.pop();
+      const filename = filenameWithExtension.split(".")[0];
+      return `${parts.pop()}/${filename}`;
+    });
+
+    // 3️⃣ Delete images from Cloudinary
+    for (const publicId of publicIds) {
+      try {
+        await cloudinary.uploader.destroy(publicId);
+        console.log(`Deleted image: ${publicId}`);
+      } catch (cloudinaryError) {
+        console.error(`Failed to delete image ${publicId}:`, cloudinaryError);
+      }
+    }
+
+    // 4️⃣ Delete the property from the database
+    await Property.deleteOne({ _id: id });
+    revalidatePath("/properties");
+    revalidatePath("/addproperty");
+    console.log("Property and images deleted successfully.");
+
+    return { success: "Property and images deleted successfully." };
   } catch (error) {
-    console.log(error)
-    console.log('something went wrong when deleting property.')
-    
+    console.error("Error deleting property:", error);
+    return { error: "Something went wrong when deleting the property." };
   }
-}
+};
