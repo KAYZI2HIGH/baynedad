@@ -6,7 +6,6 @@ import ShortenText from "@/lib/utils/Shortentext";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import { Suspense } from "react";
-import Button from "@mui/material/Button";
 import Loader from "@/components/loader/Loader";
 
 import Form from "@/components/form/Form";
@@ -41,14 +40,14 @@ const PropertyPage = async ({ params }) => {
           </div>
           <div className="flex justify-between body_text md:section_title font-semibold tracking-wide pb-7 border-b">
             <h1 className="hidden sm:block">{property.title}</h1>
-            <h1 className=" sm:hidden">
+            <div className=" sm:hidden">
               {
                 <ShortenText
                   text={property.title}
                   maxLength={20}
                 />
               }
-            </h1>
+            </div>
             <h4>{property.price}</h4>
           </div>
           <div className="space-y-4 pb-7 border-b">

@@ -135,11 +135,11 @@ const Form = () => {
             {errors.message.message}
           </p>
         )}
-        <Button
+        <button
           disabled={isSubmitting}
           type="submit"
           variant="contained"
-          className="w-full bg-[#BC986B] hover:bg-amber-400 hover:text-black duration-300 flex justify-center items-center gap-2"
+          className="w-full bg-[#BC986B] py-3 uppercase normal_text text-white  rounded hover:bg-amber-400 hover:text-black duration-300 flex justify-center items-center gap-2"
         >
           {!isSubmitting ? (
             <>send message</>
@@ -148,7 +148,7 @@ const Form = () => {
               sending...
             </>
           )}
-        </Button>
+        </button>
       </div>
     </form>
   );
