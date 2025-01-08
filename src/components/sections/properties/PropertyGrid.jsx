@@ -1,13 +1,8 @@
-// "use client";
+'use client'
 
-// import { properties1 } from "@/lib/constants";
 import ShortenText from "@/lib/utils/Shortentext";
 import { MapPin } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,11 +10,11 @@ import PropertyImgSlide from "./PropertyImgSlide.jsx";
 import { getProperty } from "@/lib/fetchData.jsx";
 
 
-const propertyCard = (property) => (
+const propertyCard = (property, index) => (
   <Link
     href={`/properties/${property._id}`}
     className="group py-2 space-y-2 border rounded-md shadow-sm"
-    key={property._id}
+    key={index}
   >
     <div className="p-3 space-y-3">
       <p className="uppercase small_text text-blue-500 font-bold tracking-widest">

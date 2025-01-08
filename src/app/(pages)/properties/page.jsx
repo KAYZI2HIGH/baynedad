@@ -1,9 +1,10 @@
+'use client'
+
 import Loader from "@/components/loader/Loader";
 import PropertyGrid from "@/components/sections/properties/PropertyGrid";
 import Link from "next/link";
 import { Suspense } from "react";
 import { auth } from "../../../../auth";
-import { redirect } from "next/navigation";
 
 const PropertiesPage = async () => {
   const session = await auth();
