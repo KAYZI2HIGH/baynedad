@@ -1,5 +1,3 @@
-'use client'
-
 import ShortenText from "@/lib/utils/Shortentext";
 import { MapPin } from "lucide-react";
 import Link from "next/link";

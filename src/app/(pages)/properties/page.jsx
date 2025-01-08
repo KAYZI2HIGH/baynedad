@@ -1,5 +1,3 @@
-'use client'
-
 import Loader from "@/components/loader/Loader";
 import PropertyGrid from "@/components/sections/properties/PropertyGrid";
 import Link from "next/link";
