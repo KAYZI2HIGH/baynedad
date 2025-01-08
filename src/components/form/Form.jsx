@@ -70,11 +70,11 @@ const Form = () => {
       onSubmit={handleSubmit(submit)}
       className="w-full h-fit md:max-w-[40%] bg-[#31323C] text-white p-10"
     >
-      <ToastContainer
+      {/* <ToastContainer
         position="top-left"
         autoClose={5000}
         hideProgressBar={true}
-      />
+      /> */}
       <h1 className="section_title tracking-wider font-semibold">
         Request a Showing
       </h1>
