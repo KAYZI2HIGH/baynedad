@@ -4,7 +4,7 @@ import emailjs from "@emailjs/browser";
 
 import { useForm } from "react-hook-form";
 
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
 import { CheckCircle, XCircle } from "lucide-react";
 
@@ -43,27 +43,27 @@ const Form = () => {
     }
   };
 
-  const notifySuccess = () =>
-    toast(
-      <div className="text-center p-4 bg-green-200 text-green-700 rounded-lg flex items-center justify-center space-x-4">
-        <CheckCircle className="text-2xl" />
-        <p className="text-sm">
-          We’re excited to hear from you! Stay tuned for our response.!
-        </p>
-      </div>
-    );
-  const notifyFailed = () =>
-    toast(
-      <div className="text-center p-4 bg-red-200 text-red-700 rounded-lg flex items-center justify-center space-x-4">
-        <XCircle className="text-2xl" />
-        <p className="text-sm">
-          An error occurred while submitting the form. Please try again later.
-        </p>
-      </div>
-    );
+  // const notifySuccess = () =>
+  //   toast(
+  //     <div className="text-center p-4 bg-green-200 text-green-700 rounded-lg flex items-center justify-center space-x-4">
+  //       <CheckCircle className="text-2xl" />
+  //       <p className="text-sm">
+  //         We’re excited to hear from you! Stay tuned for our response.!
+  //       </p>
+  //     </div>
+  //   );
+  // const notifyFailed = () =>
+  //   toast(
+  //     <div className="text-center p-4 bg-red-200 text-red-700 rounded-lg flex items-center justify-center space-x-4">
+  //       <XCircle className="text-2xl" />
+  //       <p className="text-sm">
+  //         An error occurred while submitting the form. Please try again later.
+  //       </p>
+  //     </div>
+  //   );
 
-  if (submittedSuccess === true) notifySuccess();
-  else if (submittedSuccess === false) notifyFailed();
+  // if (submittedSuccess === true) notifySuccess();
+  // else if (submittedSuccess === false) notifyFailed();
 
   return (
     <form
