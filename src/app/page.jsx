@@ -1,6 +1,3 @@
-'use client'
-
-
 import Navbar from "@/components/navbar/navbar/Navbar";
 import About from "@/components/sections/about/About";
 import Footer from "@/components/sections/footer/footer";
