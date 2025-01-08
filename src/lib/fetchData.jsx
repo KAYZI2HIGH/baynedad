@@ -14,3 +14,13 @@ export const getUsers = async () => {
   
   return res.json();
 }
+
+export const getPropertyByID = async (id) => {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/properties/${id}`);
+
+  if (!res.ok) {
+    console.log("something went wrong");
+  } else {
+    return res.json();
+  }
+};

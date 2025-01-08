@@ -1,29 +1,20 @@
 import AgentCard from "@/components/sections/properties/AgentCard";
 import FeaturesCard from "@/components/sections/properties/FeaturesCard";
 import PropertyImgSlide from "@/components/sections/properties/PropertyImgSlide";
-import { connectToDB } from "@/lib/mongo";
 import ShortenText from "@/lib/utils/Shortentext";
 import { MapPin } from "lucide-react";
-import Image from "next/image";
 import { Suspense } from "react";
 import Loader from "@/components/loader/Loader";
 
 import Form from "@/components/form/Form";
+import { getPropertyByID } from "@/lib/fetchData";
 
-const getProperty = async (id) => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/properties/${id}`);
 
-  if (!res.ok) {
-    console.log("something went wrong");
-  } else {
-    return res.json();
-  }
-};
 
 const PropertyPage = async ({ params }) => {
 
-  const id = (await params).id;
-  const property = await getProperty(id);
+  const {id} = await params
+  const property = await getPropertyByID(id);
 
   return (
     <section className="bg-slate-100">
