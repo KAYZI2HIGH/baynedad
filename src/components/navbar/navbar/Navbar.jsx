@@ -26,7 +26,6 @@ const Navbar = ({ session }) => {
     if (latest > previous && latest > 150) setHidden(true);
     else setHidden(false);
   });
-  console.log(session);
 
   return (
     <motion.div

@@ -12,7 +12,7 @@ import Loader from "@/components/loader/Loader";
 import Form from "@/components/form/Form";
 
 const getProperty = async (id) => {
-  const res = await fetch(`http://localhost:3000/api/properties/${id}`);
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/properties/${id}`);
 
   if (!res.ok) {
     console.log("something went wrong");
