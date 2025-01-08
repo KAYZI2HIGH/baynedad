@@ -1,16 +1,9 @@
 import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import Button from "@mui/material/Button";
+import { getAgent } from "@/lib/fetchData";
 
 
-const getAgent = async (agentId) => {
-  const res = await fetch(`http://localhost:3000/api/users/${agentId}`);
-
-  if (!res.ok) {
-    console.log("something went wrong when fetching from api");
-  }
-  return res.json();
-};
 
 const AgentCard = async ({ agentId }) => {
   const agentDetail = await getAgent(agentId);

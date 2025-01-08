@@ -24,3 +24,12 @@ export const getPropertyByID = async (id) => {
     return res.json();
   }
 };
+
+export const getAgent = async (agentId) => {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users/${agentId}`);
+
+  if (!res.ok) {
+    console.log("something went wrong when fetching from api");
+  }
+  return res.json();
+};
